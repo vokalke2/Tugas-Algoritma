@@ -1,66 +1,60 @@
 public class App {
     public static void main(String[] args) throws Exception {
-        int[] arr = {1,2,14,5,7,10,11};   
-        bubbleSort(arr);
-       for (int i : arr) {
-            System.out.println(i);
-        }
-        int cari = 14;
-        long waktuMulai = System.nanoTime();
-        int hasil = BinarySearch(arr, cari);
-        long waktuSelesai = System.nanoTime();
-        long Durasi = waktuSelesai - waktuMulai;
+        String text = "EHUEDKdbd";
+        String text2 = "BeRBAHAYA";
+        String chipperText = enkripsi(text2.toLowerCase());
+        String plainText = deskripsi(text.toLowerCase());
 
-        if(hasil != -1){
-            System.out.print("data ditemukan di index ke-"+ hasil);
-        }else {
-            System.out.println("data tidak ditemukan");
-        }
-        System.out.println();
-        System.out.println("Linear search membutuhkan waktu :" + Durasi + " nano detik ");
+        System.out.println("Text awal plaintext :"+plainText);
+        System.out.println("Text Chippertext nya :"+chipperText);
+
     }
+    public static String enkripsi(String plainText){
+        StringBuilder chipperText = new StringBuilder(plainText);
 
-    static void bubbleSort(int array[]) {
-        int size = array.length;
-        
-        for (int i = 0; i < size - 1; i++)
-        
-          for (int j = 0; j < size - i - 1; j++)
-    
-            if (array[j] > array[j + 1]) {
-    
-              int temp = array[j];
-              array[j] = array[j + 1];
-              array[j + 1] = temp;
+        char[] alphabet = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o',
+        'p','q','r','s','t','u','v','w','x','y','z'};
+
+        char[] enkripsiAlphabet = {'d','e','f','g','h','i','j','k','l','m','n','o',
+        'p','q','r','s','t','u','v','w','x','y','z','a','b','c'};
+
+        for(int i=0; i < plainText.length(); i++){
+            char ch = plainText.charAt(i);
+
+            char enkripsiChar = ch;
+            for(int j = 0; j < alphabet.length; j++){
+                if(ch == alphabet[j]){
+                    enkripsiChar = enkripsiAlphabet[j];
+                    break;
+                }
             }
-      }
-    public static int BinarySearch(int[] arr, int cari){
-        int low = 0;
-        int high = arr.length -1;
-
-        while(low <= high){
-            int mid = (low + high) /2;
-
-            if(arr[mid] == cari){
-                return mid;
-            }
-
-            if(arr[mid]< cari){
-                low = mid + 1;
-            }else {
-                high = mid - 1;
-            }
+            chipperText.append(enkripsiChar);
         }
-        return -1;
+        StringBuilder chipper = chipperText.delete(0, chipperText.length()/2);
+        return chipperText.toString();
     }
-    
-    public static int linearsearch(int[] arr, int cari){
-        for(int i=1; i< arr.length ; i++){
-            if(arr[i] == cari){
-                return i;
-            }
+    public static String deskripsi(String chipperText){
+        StringBuilder plainText = new StringBuilder(chipperText);
+        char[] enkripsiAlphabet = {'d','e','f','g','h','i','j','k','l','m','n','o',
+        'p','q','r','s','t','u','v','w','x','y','z','a','b','c'};
 
+        char[] alphabet = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o',
+        'p','q','r','s','t','u','v','w','x','y','z'};
+
+
+        for(int i=0; i < chipperText.length(); i++){
+            char ch = chipperText.charAt(i);
+
+            char plainchar = ch;
+            for(int j = 0; j < enkripsiAlphabet.length; j++){
+                if(ch == enkripsiAlphabet[j]){
+                    plainchar = alphabet[j];
+                    break;
+                }
+            }
+            plainText.append(plainchar);
         }
-        return -1;
-    }
+        StringBuilder plain = plainText.delete(0, plainText.length()/2);
+        return plain.toString();
+}
 }
